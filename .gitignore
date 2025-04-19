@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+.env
+*.lock
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.log
+.npm
+.cache

@@ -1,0 +1,32 @@
+{
+  "name": "mentra",
+  "version": "1.0.0",
+  "description": "Mentra, the mentor with the mantra for your teaching success!",
+  "main": "index.js",
+  "scripts": {
+    "test": "server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CODERTG2/mentra.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CODERTG2/mentra/issues"
+  },
+  "homepage": "https://github.com/CODERTG2/mentra#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^2.2.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "mongoose": "^8.13.2",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
+  }
+}

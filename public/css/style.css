@@ -1,0 +1,213 @@
+:root {
+    --primary-color: #5A31F4;
+    --secondary-color: #EA80FC;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 20px 20px 20px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.banner {
+    position: fixed;
+    top: 5px;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    color: #fff;
+    padding: 10px 20px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.banner h1 {
+    font-size: 2.2rem;
+    color: #fff;
+    margin: 10px 0;
+}
+
+.banner-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.banner button {
+    font-size: 1rem;
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100px;
+    text-align: center;
+}
+
+.banner button:hover {
+    background: #e0e0e0;
+}
+
+.banner a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+}
+
+.banner a:hover {
+    text-decoration: none;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    width: 90%;
+    max-width: 320px;
+    text-align: center;
+    margin: 0 auto;
+}
+  
+.login-container h1 {
+    margin-bottom: 1.5rem;
+}
+  
+.login-container input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+}
+  
+.login-container button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: #fff;
+    color: var(--primary-color);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+  
+.login-container button:hover {
+    background: #e0e0e0;
+}
+  
+.login-container .error {
+    background: #FF6F61;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+  
+.register-container {
+    margin-top: 1.5rem;
+    text-align: right;
+}
+
+select.custom-select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: #fff;
+    color: #333;
+    font-weight: normal;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    appearance: auto;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+select.custom-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+select.custom-select option {
+    background: #fff;
+    color: #333;
+    padding: 0.5rem;
+}
+  
+.register-link {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+}
+  
+.register-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+}
+  
+.container h1 {
+    margin-bottom: 1rem;
+    font-size: 2.2rem;
+}
+  
+.container p {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+  
+.links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+  
+.button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: #fff;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+  
+.button:hover {
+    background: #e0e0e0;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
