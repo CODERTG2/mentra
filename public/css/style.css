@@ -303,3 +303,47 @@ select.custom-select option {
     resize: vertical;
     min-height: 120px;
 }
+
+.dashboard-container {
+    padding: 20px;
+    overflow-x: auto; /* For horizontal scrolling if needed */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.score-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.score-table th, .score-table td {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px;
+    text-align: center;
+}
+
+.score-table th {
+    background-color: rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+}
+
+.score-table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.score-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.no-score {
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}

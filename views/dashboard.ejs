@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Your Dashboard</title>
+</head>
+<body>
+    <div class="banner">
+        <h1><a id="whiteHeaderHyperlink" href="/teacher">Mentra</a></h1>
+        <div class="banner-buttons">
+            <button><a href="/dashboard">Dashboard</a></button>
+            <button><a href="/form">Form</a></button>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <h1>Dashboard</h1>
+        <% if (locals.scoreTable && locals.scoreTable.students && locals.scoreTable.students.length > 0) { %>
+            <table class="score-table">
+                <thead>
+                    <tr>
+                        <th>Student/Assignment</th>
+                        <% locals.scoreTable.assignments.forEach(assignment => { %>
+                            <th><%= assignment.name %></th>
+                        <% }); %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% locals.scoreTable.students.forEach(student => { %>
+                        <tr>
+                            <td><%= student.name %></td>
+                            <% locals.scoreTable.assignments.forEach(assignment => { %>
+                                <td>
+                                    <% 
+                                        const studentId = student._id.toString();
+                                        const assignmentId = assignment._id.toString();
+                                        const score = locals.scoreTable.scoresMap[studentId] && 
+                                                    locals.scoreTable.scoresMap[studentId][assignmentId];
+                                    %>
+                                    <% if (score !== undefined) { %>
+                                        <%= score %>
+                                    <% } else { %>
+                                        <span class="no-score">N/A</span>
+                                    <% } %>
+                                </td>
+                            <% }); %>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No data available. Submit assessments using the form that can be accessed through the banner to see results here.</p>
+        <% } %>
+    </div>
+</body>
+</html>

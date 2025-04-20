@@ -132,23 +132,50 @@ app.get('/student', ensureAuthenticated, (req, res) => {
     res.render('student', {user: req.user});
 });
 
-app.get('/dashboard', ensureAuthenticated, (req, res) => {
-    res.render('dashboard', {user: req.user});
+app.get('/dashboard', ensureAuthenticated, async (req, res) => {
+    try {
+        const userId = req.user._id;
+        
+        const students = await Student.find({ teacherId: userId });
+            
+        const assignments = await Assignment.find({ teacherId: userId });
+            
+        const scores = await Score.find({ teacherId: userId });
+        const scoreTable = {
+            students: students,
+            assignments: assignments,
+            scoresMap: {}
+        };
+            
+        scores.forEach(score => {
+            const studentId = score.studentId.toString();
+            const assignmentId = score.assignmentId.toString();
+                
+            if (!scoreTable.scoresMap[studentId]) {
+                scoreTable.scoresMap[studentId] = {};
+            }
+                
+            scoreTable.scoresMap[studentId][assignmentId] = score.score;
+        });
+        res.render('dashboard', {user: req.user, scoreTable: scoreTable});
+    } 
+    catch (error) {
+        console.error('Error fetching dashboard data:', error);
+        req.flash('error', 'Error loading dashboard data');
+        res.render('dashboard', { 
+            user: req.user, 
+            error: 'Failed to load data'
+        });
+    }
 });
+
 app.get('/form', ensureAuthenticated, (req, res) => {
     res.render('form', {user: req.user});
 });
 
 app.post('/form', ensureAuthenticated, async (req, res) => {
     try {
-        console.log("Form submission received:", req.body);
         const {studentName, assignment, answer} = req.body;
-        
-        if (!studentName || !assignment || !answer) {
-            console.error("Missing required fields");
-            req.flash('error', 'All fields are required');
-            return res.redirect('/form');
-        }
         
         const userId = req.user._id;
 
@@ -166,11 +193,9 @@ app.post('/form', ensureAuthenticated, async (req, res) => {
             await assignmentDoc.save();
         }
         
-        console.log("Calling AI service to evaluate essay...");
         try {
             const score = await aiService.evaluateEssay(answer);
-            console.log("Essay evaluation complete. Score:", score);
-            
+                        
             const newScore = new Score({studentId: student._id, assignmentId: assignmentDoc._id, teacherId: userId, score, answer});
             await newScore.save();
             
