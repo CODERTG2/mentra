@@ -195,7 +195,7 @@ app.post('/form', ensureAuthenticated, async (req, res) => {
         
         try {
             const score = await aiService.evaluateEssay(answer);
-                        
+
             const newScore = new Score({studentId: student._id, assignmentId: assignmentDoc._id, teacherId: userId, score, answer});
             await newScore.save();
             
@@ -217,11 +217,6 @@ app.post('/form', ensureAuthenticated, async (req, res) => {
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) return next();
     res.redirect('/login');
-}
-
-function userTypeMiddleware(userType) {
-    if(userType == "teacher") {return '/teacher'}
-    else if(userType == "student") {return '/student'}
 }
 
 const PORT = process.env.PORT || 3000;
