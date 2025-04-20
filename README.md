@@ -1,4 +1,4 @@
-# mentra
+# Mentra
 Mentra, the mentor with the <a href="https://github.com/CODERTG2/auto-evaluation">mantra</a> for your teaching success!
 
 For FutureHacks 7 2025
