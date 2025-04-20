@@ -7,11 +7,18 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo');
+const spawner = require('child_process').spawn;
 require('dotenv').config();
 
 const connectDB = require('./config/db');
 const User = require('./models/User');
+const Student = require('./models/Student');
+const Assignment = require('./models/Assignment');
+const Score = require('./models/Score');
 connectDB();
+
+const aiService = require('./services/ai/ai_service');
+aiService.initializeAI()
 
 const app = express();
 
@@ -123,6 +130,63 @@ app.get('/teacher', ensureAuthenticated, (req, res) => {
 });
 app.get('/student', ensureAuthenticated, (req, res) => {
     res.render('student', {user: req.user});
+});
+
+app.get('/dashboard', ensureAuthenticated, (req, res) => {
+    res.render('dashboard', {user: req.user});
+});
+app.get('/form', ensureAuthenticated, (req, res) => {
+    res.render('form', {user: req.user});
+});
+
+app.post('/form', ensureAuthenticated, async (req, res) => {
+    try {
+        console.log("Form submission received:", req.body);
+        const {studentName, assignment, answer} = req.body;
+        
+        if (!studentName || !assignment || !answer) {
+            console.error("Missing required fields");
+            req.flash('error', 'All fields are required');
+            return res.redirect('/form');
+        }
+        
+        const userId = req.user._id;
+
+        let student;
+        student = await Student.findOne({name: studentName, teacherId: userId});
+        if (!student) {
+            student = new Student({name: studentName, teacherId: userId});
+            await student.save();
+        }
+
+        let assignmentDoc;
+        assignmentDoc = await Assignment.findOne({name: assignment, teacherId: userId});
+        if (!assignmentDoc) {
+            assignmentDoc = new Assignment({name: assignment, teacherId: userId});
+            await assignmentDoc.save();
+        }
+        
+        console.log("Calling AI service to evaluate essay...");
+        try {
+            const score = await aiService.evaluateEssay(answer);
+            console.log("Essay evaluation complete. Score:", score);
+            
+            const newScore = new Score({studentId: student._id, assignmentId: assignmentDoc._id, teacherId: userId, score, answer});
+            await newScore.save();
+            
+            req.flash('success', 'Form submitted successfully');
+            res.render('form', {result: score, user: req.user});
+        } catch (evalError) {
+            console.error("Error evaluating essay:", evalError);
+            req.flash('error', 'Error evaluating essay: ' + evalError.message);
+            res.redirect('/form');
+        }
+    }
+    catch (err) {
+        console.error("Error during form submission:", err);
+        req.flash('error', 'Server error');
+        res.redirect('/form');
+    }
 });
 
 function ensureAuthenticated(req, res, next) {

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Your Dashboard</title>
+</head>
+<body>
+    <div class="banner">
+        <h1><a id="whiteHeaderHyperlink" href="/teacher">Mentra</a></h1>
+        <div class="banner-buttons">
+            <button><a href="/dashboard">Dashboard</a></button>
+            <button><a href="/form">Form</a></button>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h1>Form</h1>
+        <form action="/form" method="POST">
+            <input type="text" name="studentName" placeholder="Student Name" required>
+            <input type="text" name="assignment" placeholder="Assignment Name" required>
+            <textarea name="answer" placeholder="Answer" rows="6" required></textarea>
+            <button type="submit">Submit & Score</button>
+        </form>
+        <p>Score: <%= locals.result %></p>
+    </div>
+</body>
+</html>
