@@ -1,4 +1,29 @@
 # mentra
-Mentra, the mentor with the mantra for your teaching success!
+Mentra, the mentor with the <a href="https://github.com/CODERTG2/auto-evaluation">mantra</a> for your teaching success!
 
 For FutureHacks 7 2025
+
+## Inspiration
+After learning about the theme, I researched some problems that children face in education. One of the prominent reasons why the education system is failing is because of overburdened teachers and bad retention of teachers. I can kind of relate to this being a tutor for 4 years. I know the frustrations that they can have. Digging deeper in this direction, I realized that ethical AI can be an excellent tool at the disposal of teachers to fasten and simplify their busy tasks so that they can maximize their time on important ones like planning lessons and making creative plans to actually help each student individually. One of the areas I thought about from my experience is grading homework. Homework with objective questions are easy to grade and many tools already exist that automate the process and make it easier for me to track student growth. But when there are short-answer questions or essays, it can be very time consuming for teachers. I remember asking my teacher once about how long it will take to grade our class’s essays. They replied that there is a reason why it takes weeks for us to get back our essays. I thought about why the teachers should manually grade the essays. Mainly there are two reasons. Firstly, it might be to enforce the assignment so that students actually attempt and practice those skills. Secondly, it might be to track student progress and find areas to improve on which would be necessary for those lesson plans.
+
+## What it does
+So, I started working on a website where both students and teachers can register and take advantage of an AI that automatically evaluates such answers based on a “universal” rubric. For teachers, they can submit answers for each student individually, and the AI assigns a score from 1-6. They can later access their dashboard where they can find a table with students, assignments, and scores. For students, they can use the AI to see if there are areas for improvement in their response. There are many more features that can make this a strong product. But the things that have been actually accomplished are a preliminary AI model (works decently well but can be improved), registration system, and the submission of essays. If you would imagine an essay. A teacher could easily spend 30 minutes thoroughly reading and writing feedback for a student. Using this AI, I can imagine a teacher quickly skimming through the essay and writing preliminary thoughts. That would take 5-10 minutes. They can then later verify and build upon their analysis using the AI’s scoring which would take another 5 minutes. That saves the teacher half the time.
+
+## How we built it
+Using node.js framework and express, I was able to set up the website. All data is stored in the MongoDB cluster (mentra repo). I used python and tensorflow for machine learning, specifically to train an LSTM (auto-evaluation repo).
+
+## Challenges we ran into
+Firstly, it was learning how to do machine learning with textual data. Until now, I had only done ML with numerical and structured data. Secondly, I was trying to run the model in python and send data to javascript but that was unsuccessful due to my computer not have AVX support. So I had to figure out how to convert my model in keras into a model that can be ran in javascript. I had never coded anything ML related in js, so that was a big blocker. I was able to piece together the functions using stackoverflow and github but then I was having issues with the model.json. Turns out there are some package version issues. I tried downgrading and it didn’t work. So I had to go back to python make changes in the naming convention of my model and re-export it and try again. That wasn’t working. I went back and retrained my model on an older version of tensorflow that was suggested on github issue page. All of this code is on main_again.ipynb. I then tried different libraries for both the python and javascript end to see if I can find something that doesn’t require tensorflow nor AVX support. I had to gain access to another computer with AVX and still I wasnt able to convert it into .json and .bin. I even considered making a REST API but that didn’t work. Then I used glitch but they didn’t give me enough space to use their AVX support on the server. But using tf2keras, I was finally able to convert it to .onnx which makes it possible to run in js (This is at 10 ET on Sunday). Then it was smooth sailing. All of this mess can be seen in the auto-evaluation repo (I dont think you want to).
+
+## Accomplishments that we're proud of
+Again, I am really happy to build my first model based on unstructured data as the input. Also, this is my first hackathon so I am very have with getting this much progress in the short timeframe. Lastly, it is solving that one issue. That consumed most of my time and it was crucial to my project.
+
+## What we learned
+I learned how to use ML with javascript (ai_service.js). Learned a lot (:sob:) about tensorflowjs the hard way but the best way. I learned how to pass data between js and py. Once again, I learned how to train over unstructured data (main_again.ipynb).
+
+## What's next for Mentra
+- Finished dashboard - adding a “heatmap” better for visualization
+- Using ChatGPT API or some other LLM API to write feedback (specific quotes from the response that are working well and are working not so well) based on the scoring from Mentra and its rubric.
+- Training Mentra more variety of data with different dialects.
+- Adding more complex scoring: more scores like grammar (follows grammar rules), comprehension (understanding of the topic - book, science idea, math concept, historical event, etc.), and reasoning (development of an argument).
+- A basic overall score is just a beginning. Make these tools available to students.
